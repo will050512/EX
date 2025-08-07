@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI英語伴讀 - 愛米英語冒險島</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #4a90e2, #7b68ee);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('001.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .hero-content h2 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+        
+        .hero-content p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+            line-height: 1.4;
+        }
+        
+        .price {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .price .original {
+            font-size: 1.5em;
+            text-decoration: line-through;
+            opacity: 0.7;
+            color: #ffcccc;
+        }
+        
+        .price .current {
+            font-size: 2.5em;
+            color: #ffeb3b;
+            font-weight: bold;
+            margin: 10px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .price .save {
+            font-size: 1.2em;
+            color: #4caf50;
+            font-weight: bold;
+        }
+        
+        /* Problem Section */
+        .problem-section {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .problem-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .problem-list {
+            font-size: 1.3em;
+            line-height: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .features h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .features .subtitle {
+            text-align: center;
+            font-size: 1.3em;
+            margin-bottom: 50px;
+            color: #7b68ee;
+            font-weight: bold;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #4a90e2;
+        }
+        
+        /* Product Gallery - 改為單列設計適合手機觀看 */
+        .gallery {
+            padding: 80px 0;
+        }
+        
+        .gallery h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            color: #2c3e50;
+        }
+        
+        .gallery-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .gallery-item {
+            background: #fff;
+            height: 320px;
+            margin-bottom: 24px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            color: #333;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+            position: relative;
+            overflow: hidden;
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+        .gallery-item:hover {
+            box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+            transform: translateY(-4px) scale(1.02);
+        }
+        .gallery-item img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .gallery-item span {
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.55);
+            color: #fff;
+            font-size: 1.1em;
+            padding: 10px 0;
+            z-index: 2;
+            border-radius: 0 0 12px 12px;
+            text-align: center;
+        }
+        
+        /* Order Section */
+        .order-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .order-form {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            background: rgba(255,255,255,0.9);
+        }
+        
+        .quantity-selector {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .quantity-option {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .quantity-option:hover, .quantity-option.active {
+            background: rgba(255,255,255,0.3);
+            border-color: rgba(255,255,255,0.8);
+            transform: translateY(-2px);
+        }
+        
+        .order-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.5em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            font-weight: bold;
+        }
+        
+        .order-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        
+        /* 直立式跑馬燈 - 放在最下方 */
+        .vertical-ticker {
+            position: fixed;
+            right: 20px;
+            bottom: 80px;
+            width: 300px;
+            height: 400px;
+            background: rgba(44, 62, 80, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 2px solid #4a90e2;
+            color: white;
+            overflow: hidden;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .ticker-header {
+            background: linear-gradient(45deg, #4a90e2, #7b68ee);
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .ticker-content {
+            height: calc(100% - 60px);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .ticker-items {
+            animation: verticalScroll 60s linear infinite;
+        }
+        
+        .ticker-item {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9em;
+            line-height: 1.4;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .ticker-item::before {
+            content: "🎉";
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+        
+        @keyframes verticalScroll {
+            0% { transform: translateY(100%); }
+            100% { transform: translateY(-100%); }
+        }
+        
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2em; }
+            .hero-content h2 { font-size: 2em; }
+            .hero-content p { font-size: 1.2em; }
+            .price .current { font-size: 2em; }
+            .features-grid { grid-template-columns: 1fr; }
+            .quantity-selector { flex-direction: column; align-items: center; }
+            .gallery-item { height: 250px; }
+            
+            /* 手機版跑馬燈調整 */
+            .vertical-ticker {
+                width: 280px;
+                height: 350px;
+                right: 10px;
+                bottom: 70px;
+            }
+        }
+        
+        /* Floating Action */
+        .floating-order {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #e74c3c;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            cursor: pointer;
+            z-index: 1000;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+            font-size: 1.1em;
+        }
+        
+        @keyframes pulse {
+            0% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.05); }
+            100% { transform: translateX(-50%) scale(1); }
+        }
+        
+        .highlight-text {
+            background: linear-gradient(45deg, #ffeb3b, #ff9800);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1>🤖 AI英語伴讀</h1>
+            <p class="subtitle">愛米英語冒險島 • 用遊戲學英文 • 孩子超愛學</p>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>🎮 遊戲學英文，效果超驚人！</h2>
+                <p>💸 補習太貴？孩子學不起？<br>🎯 每月只要 $499，英文力照樣爆升！</p>
+                <div class="price">
+                    <div class="original">補習班月費 NT$ 8,000</div>
+                    <div class="current">AI伴讀 NT$ 499/月</div>
+                    <div class="save">現省 NT$ 7,501！</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem-section">
+        <div class="container">
+            <h2>😰 孩子英文學不好，爸媽超焦慮！</h2>
+            <div class="problem-list">
+                📉 不敢開口、聽不懂、死背沒效果？<br>
+                💸 補習貴又沒興趣，孩子越學越排斥！<br>
+                😤 傳統教學枯燥乏味，學習沒動力？<br>
+                ⏰ 語言黃金期流逝，錯過就來不及了！
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <!-- 已搬移到最新訂閱紀錄下方，原區塊移除 -->
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery">
+        <div class="container">
+            <h2 style="text-align:center; font-size:2.2em; margin-bottom:40px;">🖼️ 產品功能展示</h2>
+            <div class="gallery-list" style="display:flex; flex-direction:column; gap:32px; align-items:center;">
+                <img src="002.png" alt="002.png" style="width:100%; max-width:700px; border-radius:18px; box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+                <img src="003_b.png" alt="003_b.png" style="width:100%; max-width:700px; border-radius:18px; box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+                <img src="AEA_b.png" alt="AEA_b.png" style="width:100%; max-width:700px; border-radius:18px; box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+                <img src="AEA01.png" alt="AEA01.png" style="width:100%; max-width:700px; border-radius:18px; box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+                <img src="AEA02.png" alt="AEA02.png" style="width:100%; max-width:700px; border-radius:18px; box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+                <img src="AAEL.png" alt="AAEL.png" style="width:100%; max-width:700px; border-radius:18px; box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+                <img src="AAEL01.png" alt="AAEL01.png" style="width:100%; max-width:700px; border-radius:18px; box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+                <img src="AAEL02.png" alt="AAEL02.png" style="width:100%; max-width:700px; border-radius:18px; box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+                <img src="004.png" alt="004.png" style="width:100%; max-width:700px; border-radius:18px; box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+                <img src="005_b.png" alt="005_b.png" style="width:100%; max-width:700px; border-radius:18px; box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+            </div>
+            <!-- 假訂閱滾動區塊 -->
+            <div id="fake-subscribes" style="margin:48px auto 0 auto; max-width:700px; overflow:hidden; background:rgba(255,255,255,0.95); border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.08); border:1px solid #eee;">
+                <div style="padding:18px 0 10px 0; font-weight:bold; color:#fff; text-align:center; font-size:1.25em; background:linear-gradient(90deg,#ff9800,#ffeb3b 80%); letter-spacing:2px; border-radius:12px 12px 0 0; box-shadow:0 2px 8px rgba(255,152,0,0.08);">
+                    <span style="color:#d32f2f; font-size:1.3em; margin-right:8px;">🔥</span>最新訂閱紀錄 <span style="color:#d32f2f; font-size:1.3em; margin-left:8px;">🔥</span>
+                </div>
+                <div class="subscribe-ticker" style="height:56px; position:relative; overflow:hidden; background:rgba(255,255,255,0.98);">
+                    <ul id="subscribe-list" style="list-style:none; margin:0; padding:0; position:absolute; width:100%; font-size:1.18em; color:#222; font-weight:bold; letter-spacing:1px;">
+                        <!-- JS動態生成 -->
+                    </ul>
+                </div>
+                <!-- 方案特色區塊搬移於此 -->
+                <div class="features-moved" style="margin:48px auto 0 auto; max-width:900px;">
+                    <h2 style="text-align:center; font-size:2em; color:#d32f2f; margin-bottom:10px;">🔥【愛米英語冒險島】解決方案</h2>
+                    <p style="text-align:center; font-size:1.2em; color:#7b68ee; margin-bottom:32px;">🎮 每月只要 $499 讓 4–18 歲孩子在遊戲中自然開口說英文！</p>
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:32px;">
+                        <div style="background:#fff; border-radius:15px; box-shadow:0 4px 18px rgba(0,0,0,0.08); padding:32px 24px; text-align:center;">
+                            <div style="font-size:2.2em; margin-bottom:12px;">🤖</div>
+                            <div style="font-weight:bold; font-size:1.2em; color:#4a90e2; margin-bottom:8px;">AI語音互動</div>
+                            <div style="color:#444;">24小時AI陪練，即時糾音回饋，讓孩子勇敢開口說英文，不怕犯錯！</div>
+                        </div>
+                        <div style="background:#fff; border-radius:15px; box-shadow:0 4px 18px rgba(0,0,0,0.08); padding:32px 24px; text-align:center;">
+                            <div style="font-size:2.2em; margin-bottom:12px;">🎮</div>
+                            <div style="font-weight:bold; font-size:1.2em; color:#4a90e2; margin-bottom:8px;">遊戲化學習</div>
+                            <div style="color:#444;">冒險闖關、收集寶物，在遊戲中自然學會英文，孩子超愛、爸媽超省！</div>
+                        </div>
+                        <div style="background:#fff; border-radius:15px; box-shadow:0 4px 18px rgba(0,0,0,0.08); padding:32px 24px; text-align:center;">
+                            <div style="font-size:2.2em; margin-bottom:12px;">🎯</div>
+                            <div style="font-weight:bold; font-size:1.2em; color:#4a90e2; margin-bottom:8px;">適齡設計</div>
+                            <div style="color:#444;">根據年齡量身打造學習內容，4-18歲都適用，學得快又開心！</div>
+                        </div>
+                        <div style="background:#fff; border-radius:15px; box-shadow:0 4px 18px rgba(0,0,0,0.08); padding:32px 24px; text-align:center;">
+                            <div style="font-size:2.2em; margin-bottom:12px;">📊</div>
+                            <div style="font-weight:bold; font-size:1.2em; color:#4a90e2; margin-bottom:8px;">進度追蹤</div>
+                            <div style="color:#444;">家長輕鬆追蹤學習進度，成效看得見，信心大爆發！</div>
+                        </div>
+                        <div style="background:#fff; border-radius:15px; box-shadow:0 4px 18px rgba(0,0,0,0.08); padding:32px 24px; text-align:center;">
+                            <div style="font-size:2.2em; margin-bottom:12px;">🏆</div>
+                            <div style="font-weight:bold; font-size:1.2em; color:#4a90e2; margin-bottom:8px;">成就系統</div>
+                            <div style="color:#444;">完成任務獲得獎勵，建立學習成就感，持續激發學習動機！</div>
+                        </div>
+                        <div style="background:#fff; border-radius:15px; box-shadow:0 4px 18px rgba(0,0,0,0.08); padding:32px 24px; text-align:center;">
+                            <div style="font-size:2.2em; margin-bottom:12px;">📱</div>
+                            <div style="font-weight:bold; font-size:1.2em; color:#4a90e2; margin-bottom:8px;">隨時隨地</div>
+                            <div style="color:#444;">手機、平板都能學，不受時間地點限制，學習更自由！</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Section -->
+    <section class="order-section" id="order">
+        <div class="container">
+            <h2>📲 立即加入，讓孩子英文突飛猛進！</h2>
+            <div class="order-form">
+                <div class="quantity-selector">
+                    <div class="quantity-option active" data-quantity="1" data-price="499">
+                        <div>月訂閱</div>
+                        <div><strong>NT$ 499/月</strong></div>
+                        <div><small>隨時可取消(取消後下月不再扣款=)</small></div>
+                    </div>
+                </div>
+                
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label for="parentName">家長姓名 *</label>
+                        <input type="text" id="parentName" name="parentName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">聯絡電話 *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="childAge">孩子年齡</label>
+                        <select id="childAge" name="childAge">
+                            <option value="4-6">4-6歲</option>
+                            <option value="7-9">7-9歲</option>
+                            <option value="10-12">10-12歲</option>
+                            <option value="13-15">13-15歲</option>
+                            <option value="16-18">16-18歲</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="order-btn">🚀 立即開始學習 - NT$ <span id="totalPrice">499</span></button>
+                    <p style="margin-top: 20px; font-size: 0.9em; opacity: 0.8;">
+                        ✅ 隨時可取消 ✅ 滿意保證
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 AI英語伴讀 - 愛米英語冒險島. 讓每個孩子都能快樂學英文</p>
+            <p>客服專線：0800-123-456 | LINE客服：@aienglish | 服務時間：週一至週日 9:00-21:00</p>
+        </div>
+    </footer>
+
+
+
+    <!-- Floating Order Button -->
+    <div class="floating-order" onclick="document.getElementById('order').scrollIntoView({behavior: 'smooth'})">
+        💰 限時優惠中 - 立即訂閱
+    </div>
+
+    <script>
+        // 假訂閱滾動動畫（亂數生成，無縫不間斷，僅顯示已完成訂閱）
+        (function(){
+            const names = ["王*媽","陳*廷","林*安","李*萱","張*宇","吳*恩","黃*婷","周*翔","許*蓉","鄭*豪","蔡*哲","簡*如","曾*傑","賴*妤","蘇*瑋","謝*君","洪*嘉","沈*彥","葉*珊","高*翔"];
+            const cities = ["台北","新北","桃園","台中","台南","高雄","新竹","嘉義","彰化","基隆","宜蘭","屏東","花蓮","台東"];
+            const list = document.getElementById('subscribe-list');
+            if (!list) return;
+            // 產生初始假資料
+            let fakeData = [];
+            for(let i=0;i<12;i++){
+                const n = names[Math.floor(Math.random()*names.length)];
+                const c = cities[Math.floor(Math.random()*cities.length)];
+                fakeData.push(`${n}（${c}）已完成訂閱`);
+            }
+            // 複製一份到尾端以實現無縫滾動
+            function renderList(){
+                const all = fakeData.concat(fakeData.slice(0,4));
+                list.innerHTML = all.map(item=>`<li>🎉 ${item}</li>`).join('');
+            }
+            renderList();
+            let index = 0;
+            const itemHeight = 56;
+            function scrollList() {
+                index++;
+                list.style.transition = 'transform 0.6s cubic-bezier(.4,.8,.4,1)';
+                list.style.transform = `translateY(-${index * itemHeight}px)`;
+                if(index === fakeData.length){
+                    setTimeout(()=>{
+                        // 無縫重置
+                        list.style.transition = 'none';
+                        list.style.transform = 'translateY(0)';
+                        index = 0;
+                        // 新增一筆新資料到fakeData
+                        const n = names[Math.floor(Math.random()*names.length)];
+                        const c = cities[Math.floor(Math.random()*cities.length)];
+                        fakeData.push(`${n}（${c}）已完成訂閱`);
+                        if(fakeData.length>20) fakeData.shift();
+                        renderList();
+                    }, 700);
+                }
+            }
+            setInterval(scrollList, 1800);
+        })();
+        // 數量選擇器功能
+        document.querySelectorAll('.quantity-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.quantity-option').forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+                const price = this.getAttribute('data-price');
+                document.getElementById('totalPrice').textContent = price;
+            });
+        });
+
+        // 表單提交處理
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const selectedPlan = document.querySelector('.quantity-option.active').textContent.trim();
+            const totalPrice = document.getElementById('totalPrice').textContent;
+            alert(`🎉 訂閱申請已提交！\n\n方案：${selectedPlan}\n總價：NT$ ${totalPrice}\n家長：${formData.get('parentName')}\n電話：${formData.get('phone')}\n\n我們會盡快聯絡您開通服務！`);
+        });
+
+        // 平滑滾動效果
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.hero');
+            const speed = scrolled * 0.5;
+            if (parallax) {
+                parallax.style.transform = `translateY(${speed}px)`;
+            }
+        });
+
+        // 添加一些動態效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 為特色卡片添加進場動畫
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    } else {
+                        entry.target.style.opacity = 0;
+                        entry.target.style.transform = 'translateY(40px)';
+                    }
+                });
+            });
+
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(40px)';
+                observer.observe(card);
+            });
+        });
+    </script>
