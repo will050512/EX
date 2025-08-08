@@ -12,11 +12,11 @@ function doPost(e) {
   }
   
   var data = [
-    e.parameter.parentName,
-    phone,
-    e.parameter.email,
-    e.parameter.childAge,
-    e.parameter.ipRegion,
+  e.parameter.parentName,
+  "'" + e.parameter.phone, // 這裡保留開頭的 0
+  e.parameter.email,
+  e.parameter.childAge,
+  e.parameter.ipRegion,
     '', // 訂閱起始時間欄位，初始為空
     '', // 最新訂單號碼欄位，初始為空
     '', // 當月扣款狀態欄位，初始為空
@@ -903,6 +903,11 @@ function sendPaymentSuccessEmail(email, name, paymentDate, orderNumber) {
             <p><strong>訂單號碼：</strong> ${orderNumber}</p>
             <p><strong>扣款日期：</strong> ${paymentDate}</p>
             <p>服務將持續為您提供，如有任何問題請隨時聯繫我們。</p>
+            <p>
+            <a href="https://example.com" target="_blank">點擊此處開始使用 AI 英語伴讀</a>
+            </p>
+            <img src="https://qr-official.line.me/gs/M_416ooiuy_GW.png?oat_content=qr">
+            <a href="https://lin.ee/CgjbjsH"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png" alt="加入好友" height="36" border="0"></a>
             <p>感謝您的支持！</p>
           </div>
           <div class="footer">
