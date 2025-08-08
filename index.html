@@ -578,10 +578,12 @@
                             <option value="16-18">16-18歲</option>
                         </select>
                     </div>
+                    <input type="hidden" name="ipRegion" id="ipRegion">
                     <button type="submit" class="order-btn">🚀 立即開始學習 - NT$ <span id="totalPrice">499</span></button>
                     <p style="margin-top: 20px; font-size: 0.9em; opacity: 0.8;">
                         ✅ 隨時可取消 ✅ 滿意保證
                     </p>
+                    <div id="formMsg" style="text-align:center;color:#388e3c;margin-top:8px;"></div>
                 </form>
                 <!-- LINE官方加入區塊 -->
                 <div style="margin-top:32px; text-align:center;">
@@ -664,20 +666,46 @@
         });
 
         // 表單提交處理
-        document.getElementById('orderForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            const parentName = formData.get('parentName').trim();
-            const phone = formData.get('phone').trim();
-            const email = formData.get('email').trim();
-            // 檢查必填欄位
-            if (!parentName || !phone || !email) {
-                alert('請完整填寫所有必填欄位（家長姓名、聯絡電話、Email）');
-                return;
-            }
-            // 跳轉到ECPay付款連結
-            window.location.href = 'https://p.ecpay.com.tw/F413E3C';
-        });
+                // 取得IP地區
+                fetch('https://ipapi.co/json/')
+                    .then(res => res.json())
+                    .then(data => {
+                        document.getElementById('ipRegion').value = `${data.city || ''} ${data.region || ''}`.trim();
+                    })
+                    .catch(() => {
+                        document.getElementById('ipRegion').value = '查詢失敗';
+                    });
+
+                document.getElementById('orderForm').addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        const formData = new FormData(this);
+                        const parentName = formData.get('parentName').trim();
+                        const phone = formData.get('phone').trim();
+                        const email = formData.get('email').trim();
+                        const formMsg = document.getElementById('formMsg');
+                        // 檢查必填欄位
+                        if (!parentName || !phone || !email) {
+                                alert('請完整填寫所有必填欄位（家長姓名、聯絡電話、Email）');
+                                return;
+                        }
+                        formMsg.textContent = '資料送出中...';
+                        // 送到 Google Sheet
+                        fetch('https://script.google.com/macros/s/AKfycbyK8X8nWzZYizsc5TO4Si2yl7y3wTEYPcQStfUpf8fh8t8QICuSRNAWooDI9d7xqSHJxQ/exec', {
+                                method: 'POST',
+                                body: formData
+                        })
+                        .then(res => res.text())
+                        .then(() => {
+                                formMsg.textContent = '已送出！';
+                                setTimeout(()=>{formMsg.textContent='';}, 2000);
+                                // 跳轉到ECPay付款連結
+                                window.location.href = 'https://p.ecpay.com.tw/D4048F8
+';
+                        })
+                        .catch(() => {
+                                formMsg.textContent = '送出失敗，請稍後再試';
+                        });
+                });
 
         // 平滑滾動效果
         window.addEventListener('scroll', function() {
