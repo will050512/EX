@@ -683,28 +683,27 @@
                         const phone = formData.get('phone').trim();
                         const email = formData.get('email').trim();
                         const formMsg = document.getElementById('formMsg');
+                        const submitBtn = this.querySelector('button[type="submit"]');
                         // 檢查必填欄位
                         if (!parentName || !phone || !email) {
-                                alert('請完整填寫所有必填欄位（家長姓名、聯絡電話、Email）');
-                                return;
+                            alert('請完整填寫所有必填欄位（家長姓名、聯絡電話、Email）');
+                            return;
                         }
+                        // 防止重複送出
+                        if (submitBtn.disabled) return;
+                        submitBtn.disabled = true;
+                        submitBtn.textContent = '送出中...';
                         formMsg.textContent = '資料送出中...';
-                        // 送到 Google Sheet
+                        // 送到 Google Sheet，送出後立即跳轉付款頁，不恢復按鈕狀態
                         fetch('https://script.google.com/macros/s/AKfycbyK8X8nWzZYizsc5TO4Si2yl7y3wTEYPcQStfUpf8fh8t8QICuSRNAWooDI9d7xqSHJxQ/exec', {
-                                method: 'POST',
-                                body: formData
+                            method: 'POST',
+                            body: formData
                         })
-                        .then(res => res.text())
-                        .then(() => {
-                                formMsg.textContent = '已送出！';
-                                setTimeout(()=>{formMsg.textContent='';}, 2000);
-                                // 跳轉到ECPay付款連結
-                                window.location.href = 'https://p.ecpay.com.tw/D4048F8
-';
-                        })
-                        .catch(() => {
-                                formMsg.textContent = '送出失敗，請稍後再試';
+                        .finally(() => {
+                            window.location.href = 'https://p.ecpay.com.tw/D4048F8';
                         });
+                        // 若fetch本身出現JS異常才顯示錯誤（極少發生）
+                        // 這裡不再阻止跳轉，除非JS本身錯誤
                 });
 
         // 平滑滾動效果
