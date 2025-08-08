@@ -583,6 +583,14 @@
                         ✅ 隨時可取消 ✅ 滿意保證
                     </p>
                 </form>
+                <!-- LINE官方加入區塊 -->
+                <div style="margin-top:32px; text-align:center;">
+                    <div style="font-size:1.1em; margin-bottom:10px;">加入LINE官方，獲得一對一諮詢：</div>
+                    <img src="https://qr-official.line.me/gs/M_416ooiuy_GW.png?oat_content=qr" alt="加入LINE官方QR碼" style="width:160px; height:160px; margin-bottom:10px;" />
+                    <br>
+                    <a href="https://lin.ee/CgjbjsH" target="_blank"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png" alt="加入好友" height="36" border="0"></a>
+                </div>
+                </form>
             </div>
         </div>
     </section>
@@ -659,9 +667,16 @@
         document.getElementById('orderForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(this);
-            const selectedPlan = document.querySelector('.quantity-option.active').textContent.trim();
-            const totalPrice = document.getElementById('totalPrice').textContent;
-            alert(`🎉 訂閱申請已提交！\n\n方案：${selectedPlan}\n總價：NT$ ${totalPrice}\n家長：${formData.get('parentName')}\n電話：${formData.get('phone')}\n\n我們會盡快聯絡您開通服務！`);
+            const parentName = formData.get('parentName').trim();
+            const phone = formData.get('phone').trim();
+            const email = formData.get('email').trim();
+            // 檢查必填欄位
+            if (!parentName || !phone || !email) {
+                alert('請完整填寫所有必填欄位（家長姓名、聯絡電話、Email）');
+                return;
+            }
+            // 跳轉到ECPay付款連結
+            window.location.href = 'https://p.ecpay.com.tw/F413E3C';
         });
 
         // 平滑滾動效果
