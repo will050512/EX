@@ -398,6 +398,12 @@
                 right: 10px;
                 bottom: 70px;
             }
+            /* 手機版浮動訂閱按鈕調整，避免遮擋 footer */
+            .floating-order {
+                bottom: 18px;
+                padding: 12px 24px;
+                font-size: 1em;
+            }
         }
         
         /* Floating Action */
@@ -451,15 +457,17 @@
 
         .modal-content {
             background: white;
-            padding: 30px 24px;
+            padding: 32px 24px;
             border-radius: 16px;
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
             max-height: 90vh;
             overflow-y: auto;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
             animation: modalFadeIn 0.3s ease-out;
             margin: auto;
+            font-size: 1.05em; /* 提升可讀性 */
+            line-height: 1.75;
         }
 
         @keyframes modalFadeIn {
@@ -481,10 +489,15 @@
         }
 
         .modal-content p {
-            font-size: 1em;
-            line-height: 1.7;
+            font-size: 1.05em;
+            line-height: 1.8;
             color: #333;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
+        }
+
+        .modal-content a {
+            color: #1e88e5;
+            text-decoration: underline;
         }
 
         .agreement-section {
@@ -561,8 +574,10 @@
             }
             
             .modal-content {
-                padding: 24px 18px;
+                padding: 20px 16px;
                 max-height: 85vh;
+                font-size: 1.02em;
+                line-height: 1.7;
             }
             
             .modal-buttons {
@@ -737,25 +752,34 @@
                 <div id="subscriptionNotice" style="display:none;">
                     <div class="modal-overlay">
                         <div class="modal-content">
-                            <h2>📌 訂閱須知</h2>
+                            <h2>📌 訂閱須知（重要）</h2>
                             <p>
-                                本訂閱方案為虛擬數位內容服務，一經付款即開始使用，根據《通訊交易解除權合理例外情事適用準則》，當月費用無法退還。
+                                本產品為「虛擬數位內容」之定期訂閱服務，訂閱後即可開始使用完整功能（包含試用期內）。依據行政院消費者保護處之說明與規範（參見：<a href="https://cpc.ey.gov.tw/Page/BC16ACF0BBB9CCC2/f8e15c56-0cbe-49ac-a7ba-2f41e1d9ca55" target="_blank" rel="noopener">企業經營者網站可否規定「不提供7日無條件退貨」？- 行政院消費者保護處</a>)，通訊交易之消費者雖得於收受商品或接受服務後7日內解除契約，但遇有行政院公告之合理例外情事者，不適用7日無條件解除權。
                             </p>
                             <p>
-                                如您欲取消訂閱，可於任何時間透過客服通知我們終止服務，下月將不再扣款。
+                                依上述規定：若消費者在訂閱前已明確取得並啟用虛擬數位內容（例如啟用試用、開始使用服務或下載內容），則該次消費不適用消費者保護法上之7日無條件解除權。本服務提供免費試玩（體驗遊戲互動），若您於試用期間已開始使用本服務/內容，即視為您已事先同意並啟用該數位內容，將不適用7日無條件解約。
+                            </p>
+                            <details style="background:#fff; padding:12px; border-radius:8px; border:1px solid #eee;">
+                                <summary style="cursor:pointer; font-weight:bold;">參考法條：消費者保護法（第19條） - 點擊展開</summary>
+                                <div style="margin-top:8px; font-size:0.95em; color:#333;">
+                                    <pre style="white-space:pre-wrap; font-family:inherit;">第十九條
+通訊交易或訪問交易之消費者，得於收受商品或接受服務後七日內，以退回商品或書面通知方式解除契約，無須說明理由及負擔任何費用或對價。但通訊交易有合理例外情事者，不在此限。前項但書合理例外情事，由行政院定之。</pre>
+                                    <div style="margin-top:6px; color:#555;">說明：依行政院消費者保護處之解釋與行政院公告之合理例外情事，於消費者已事先明確取得或啟用之虛擬數位內容（例如啟用試用或開始使用服務）時，該次消費可能不適用上述7日無條件解除權。來源：行政院消費者保護處（<a href="https://cpc.ey.gov.tw/Page/5C73E80D45D176F0" target="_blank" rel="noopener">企業經營者網站可否規定「不提供7日無條件退貨」？</a>）。</div>
+                                </div>
+                            </details>
+                            <p>
+                                我們會在您付款完成後，依您提供之聯絡資訊發送啟用連結與發票（如適用）。請務必確認您所填寫的姓名、電話與Email正確，以利後續發票寄送與會員登入。
                             </p>
                             <p>
-                                請確認您已詳閱並同意上述內容，方可進行訂閱付款。
-                            </p>
-                             <p>
-                                付款完成後，我們將會寄送連結給您，請確保您輸入的資訊一致，這樣發票與登入才能確實。
+                                若您欲取消訂閱，可於任何時間聯絡客服，我們將在收到取消通知後停止下期扣款；已生效並提供之當期服務費用，依上開規定不予退還（如適用）。
                             </p>
                             <div class="agreement-section">
                                 <label>
                                     <input type="checkbox" id="agreeCheckbox">
-                                    <span>我已閱讀並同意以上訂閱須知</span>
+                                    <span>我已閱讀並同意以上訂閱須知（包含法規說明及試用期間不適用7日無條件解除權）</span>
                                 </label>
                             </div>
+                            <div style="font-size:0.95em; color:#555; margin-top:6px;">客服專線：0800-287-643 / 02-2549-0058 ｜ LINE客服：@416ooiuy ｜ 服務時間：週一至週五 09:00–18:00</div>
                             <div class="modal-buttons">
                                 <button class="modal-btn modal-btn-cancel" onclick="closeNotice()">取消</button>
                                 <button class="modal-btn modal-btn-confirm" id="confirmBtn" onclick="confirmSubscription()">前往訂閱</button>
@@ -921,6 +945,29 @@
                 parallax.style.transform = `translateY(${speed}px)`;
             }
         });
+
+        // 避免浮動按鈕遮擋 footer：當 footer 進入視窗時，向上抬起 floating-order
+        (function(){
+            const floating = document.querySelector('.floating-order');
+            const footer = document.querySelector('.footer');
+            if(!floating || !footer) return;
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // footer 進入視窗，抬起按鈕
+                        floating.style.transform = 'translateX(-50%) translateY(-120px)';
+                        floating.style.transition = 'transform 0.3s ease';
+                    } else {
+                        // footer 不在視窗，回到原位
+                        floating.style.transform = 'translateX(-50%) translateY(0)';
+                        floating.style.transition = 'transform 0.3s ease';
+                    }
+                });
+            }, { root: null, threshold: 0 });
+
+            observer.observe(footer);
+        })();
 
         // 添加一些動態效果
         document.addEventListener('DOMContentLoaded', function() {
